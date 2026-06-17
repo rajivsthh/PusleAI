@@ -17,9 +17,13 @@ export function Pipeline() {
         <div className="flex items-end justify-between gap-6">
           <div>
             <div className="text-xs text-iris-soft tracking-wider uppercase">How it works</div>
-            <h2 className="mt-2 text-3xl sm:text-4xl tracking-tight max-w-xl">A six-stage pipeline, end to end automated.</h2>
+            <h2 className="mt-2 text-3xl sm:text-4xl tracking-tight max-w-xl">
+              A six-stage pipeline, end to end automated.
+            </h2>
           </div>
-          <p className="hidden md:block text-sm text-muted-foreground max-w-xs">Every stage is an autonomous agent — observable, replayable, and overridable by a human.</p>
+          <p className="hidden md:block text-sm text-muted-foreground max-w-xs">
+            Every stage is an autonomous agent — observable, replayable, and overridable by a human.
+          </p>
         </div>
 
         <div className="relative mt-14">
@@ -39,9 +43,13 @@ export function Pipeline() {
                   <div className="absolute inset-0 rounded-2xl bg-iris/0 group-hover:bg-iris/10 blur-xl transition-all" />
                   <s.icon className="relative h-5 w-5 text-iris-soft" strokeWidth={1.5} />
                 </div>
-                <div className="mt-4 text-[10px] tracking-[0.2em] text-muted-foreground">0{i + 1}</div>
+                <div className="mt-4 text-[10px] tracking-[0.2em] text-muted-foreground">
+                  0{i + 1}
+                </div>
                 <div className="mt-1 text-sm font-medium">{s.title}</div>
-                <div className="mt-1 text-xs text-muted-foreground leading-relaxed max-w-[160px]">{s.desc}</div>
+                <div className="mt-1 text-xs text-muted-foreground leading-relaxed max-w-[160px]">
+                  {s.desc}
+                </div>
               </motion.div>
             ))}
           </div>

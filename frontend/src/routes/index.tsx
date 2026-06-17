@@ -1,6 +1,25 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useRef, useEffect } from "react";
-import { Bell, Mic, Link as LinkIcon, Sparkles, Send, History, Video, Zap, Search, Menu, X, ChevronRight, Plus, User, Upload, Play, Pause, Download } from "lucide-react";
+import {
+  Bell,
+  Mic,
+  Link as LinkIcon,
+  Sparkles,
+  Send,
+  History,
+  Video,
+  Zap,
+  Search,
+  Menu,
+  X,
+  ChevronRight,
+  Plus,
+  User,
+  Upload,
+  Play,
+  Pause,
+  Download,
+} from "lucide-react";
 import logo from "@/assets/logo.jpeg";
 import hiVdo from "@/assets/hi.mp4";
 import test2Audio from "@/assets/test2.mp3";
@@ -12,7 +31,10 @@ export const Route = createFileRoute("/")({
 const SUGGESTED_PROMPTS = [
   { category: "Space", text: "Draft a 60-second script about NASA's newest space discovery" },
   { category: "AI", text: "What are the latest breakthroughs in neural network efficiency?" },
-  { category: "Future", text: "Suggest 5 viral hooks for a video about next-gen solid state batteries" },
+  {
+    category: "Future",
+    text: "Suggest 5 viral hooks for a video about next-gen solid state batteries",
+  },
   { category: "Trends", text: "What tech trends are currently dominating the Nepalese market?" },
 ];
 
@@ -78,7 +100,12 @@ const SCANNER_SETTING_FIELDS = [
     key: "sourceFocus",
     label: "Source focus",
     type: "select",
-    options: ["AI, space, and tech news", "Research updates", "General tech news", "Mixed current events"],
+    options: [
+      "AI, space, and tech news",
+      "Research updates",
+      "General tech news",
+      "Mixed current events",
+    ],
   },
   {
     key: "sourceCount",
@@ -133,11 +160,36 @@ const SidebarItem = ({
     }}
     className="sidebar-item"
   >
-    <div style={{ width: 32, height: 32, borderRadius: "8px", background: isActive ? "#0f172a" : "#e5e7eb", display: "flex", alignItems: "center", justifyContent: "center", color: "white", fontSize: 12, fontWeight: 700 }}>
+    <div
+      style={{
+        width: 32,
+        height: 32,
+        borderRadius: "8px",
+        background: isActive ? "#0f172a" : "#e5e7eb",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "white",
+        fontSize: 12,
+        fontWeight: 700,
+      }}
+    >
       {title.charAt(0)}
     </div>
     <div style={{ flex: 1, minWidth: 0 }}>
-      <div style={{ fontSize: "13.5px", fontWeight: 600, color: isActive ? "#0f172a" : "#334155", marginBottom: "2px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{title}</div>
+      <div
+        style={{
+          fontSize: "13.5px",
+          fontWeight: 600,
+          color: isActive ? "#0f172a" : "#334155",
+          marginBottom: "2px",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        }}
+      >
+        {title}
+      </div>
       <div style={{ fontSize: "11px", color: isActive ? "#0ea5e9" : "#64748b" }}>{date}</div>
     </div>
   </button>
@@ -146,12 +198,17 @@ const SidebarItem = ({
 function TypingDots() {
   return (
     <div style={{ display: "flex", gap: 5, alignItems: "center", padding: "4px 0" }}>
-      {[0, 1, 2].map(i => (
-        <div key={i} style={{
-          width: 8, height: 8, borderRadius: "50%",
-          background: "#0ea5e9",
-          animation: `bounce 1.2s ease-in-out ${i * 0.2}s infinite`,
-        }} />
+      {[0, 1, 2].map((i) => (
+        <div
+          key={i}
+          style={{
+            width: 8,
+            height: 8,
+            borderRadius: "50%",
+            background: "#0ea5e9",
+            animation: `bounce 1.2s ease-in-out ${i * 0.2}s infinite`,
+          }}
+        />
       ))}
     </div>
   );
@@ -221,10 +278,12 @@ function createScriptDownload(topic: string) {
   const scriptText = buildScriptText(topic);
   const file = new Blob([scriptText], { type: "text/plain;charset=utf-8" });
   const url = URL.createObjectURL(file);
-  const filename = `pulseai-script-${topic
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "") || "draft"}.txt`;
+  const filename = `pulseai-script-${
+    topic
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "draft"
+  }.txt`;
 
   return { url, filename };
 }
@@ -249,56 +308,102 @@ function createHistoryDownload(title: string, topic: string) {
   const historyText = buildHistoryText(title, topic);
   const file = new Blob([historyText], { type: "text/plain;charset=utf-8" });
   const url = URL.createObjectURL(file);
-  const filename = `pulseai-history-${title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "") || "snapshot"}.txt`;
+  const filename = `pulseai-history-${
+    title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "snapshot"
+  }.txt`;
 
   return { url, filename };
 }
 
-function Message({ msg }: { msg: { role: string; content: string | { type: "image" | "video" | "pdf"; src: string; name?: string } } }) {
+function Message({
+  msg,
+}: {
+  msg: {
+    role: string;
+    content: string | { type: "image" | "video" | "pdf"; src: string; name?: string };
+  };
+}) {
   const isUser = msg.role === "user";
   const content = msg.content;
   const isFile = typeof content !== "string";
   return (
-    <div style={{
-      display: "flex",
-      justifyContent: isUser ? "flex-end" : "flex-start",
-      marginBottom: 28,
-      animation: "fadeSlideIn 0.3s ease-out",
-    }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: isUser ? "flex-end" : "flex-start",
+        marginBottom: 28,
+        animation: "fadeSlideIn 0.3s ease-out",
+      }}
+    >
       {!isUser && (
-        <div style={{
-          width: 38, height: 38, borderRadius: "10px", flexShrink: 0,
-          background: "linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%)",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          marginRight: 16, marginTop: 4, fontSize: 20, color: "white",
-          boxShadow: "0 8px 16px rgba(14, 165, 233, 0.2)",
-        }}>✦</div>
+        <div
+          style={{
+            width: 38,
+            height: 38,
+            borderRadius: "10px",
+            flexShrink: 0,
+            background: "linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginRight: 16,
+            marginTop: 4,
+            fontSize: 20,
+            color: "white",
+            boxShadow: "0 8px 16px rgba(14, 165, 233, 0.2)",
+          }}
+        >
+          ✦
+        </div>
       )}
-      <div style={{
-        maxWidth: "80%",
-        background: isUser ? "#f1f5f9" : "transparent",
-        borderRadius: isUser ? "18px 18px 4px 18px" : "0",
-        padding: isUser ? "16px 22px" : "8px 0",
-        boxShadow: isUser ? "0 4px 20px rgba(0,0,0,0.05)" : "none",
-        border: isUser ? "1px solid rgba(0,0,0,0.05)" : "none",
-      }}>
-        {typeof content === 'string' ? (
-          <p style={{
-            margin: 0, color: isUser ? "#334155" : "#475569",
-            fontSize: 16, lineHeight: 1.7, whiteSpace: "pre-wrap",
-            fontFamily: "'Inter', sans-serif",
-          }}>{content}</p>
+      <div
+        style={{
+          maxWidth: "80%",
+          background: isUser ? "#f1f5f9" : "transparent",
+          borderRadius: isUser ? "18px 18px 4px 18px" : "0",
+          padding: isUser ? "16px 22px" : "8px 0",
+          boxShadow: isUser ? "0 4px 20px rgba(0,0,0,0.05)" : "none",
+          border: isUser ? "1px solid rgba(0,0,0,0.05)" : "none",
+        }}
+      >
+        {typeof content === "string" ? (
+          <p
+            style={{
+              margin: 0,
+              color: isUser ? "#334155" : "#475569",
+              fontSize: 16,
+              lineHeight: 1.7,
+              whiteSpace: "pre-wrap",
+              fontFamily: "'Inter', sans-serif",
+            }}
+          >
+            {content}
+          </p>
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {content.type === 'image' && <img src={content.src} alt={content.name || 'image'} style={{ maxWidth: '100%', borderRadius: 12 }} />}
-            {content.type === 'video' && <video src={content.src} controls style={{ maxWidth: '100%', borderRadius: 12 }} />}
-            {content.type === 'pdf' && (
-              <a href={content.src} download={content.name} style={{ color: '#0ea5e9', textDecoration: 'underline' }}>{content.name || 'Download PDF'}</a>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {content.type === "image" && (
+              <img
+                src={content.src}
+                alt={content.name || "image"}
+                style={{ maxWidth: "100%", borderRadius: 12 }}
+              />
             )}
-            {content.name && <div style={{ fontSize: 12, color: '#64748b' }}>{content.name}</div>}
+            {content.type === "video" && (
+              <video src={content.src} controls style={{ maxWidth: "100%", borderRadius: 12 }} />
+            )}
+            {content.type === "pdf" && (
+              <a
+                href={content.src}
+                download={content.name}
+                style={{ color: "#0ea5e9", textDecoration: "underline" }}
+              >
+                {content.name || "Download PDF"}
+              </a>
+            )}
+            {content.name && <div style={{ fontSize: 12, color: "#64748b" }}>{content.name}</div>}
           </div>
         )}
       </div>
@@ -307,7 +412,12 @@ function Message({ msg }: { msg: { role: string; content: string | { type: "imag
 }
 
 function Index() {
-  const [messages, setMessages] = useState<Array<{ role: string; content: string | { type: "image" | "video" | "pdf"; src: string; name?: string } }>>([]);
+  const [messages, setMessages] = useState<
+    Array<{
+      role: string;
+      content: string | { type: "image" | "video" | "pdf"; src: string; name?: string };
+    }>
+  >([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(true);
@@ -324,7 +434,9 @@ function Index() {
   const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null);
   const [scriptDownloadUrl, setScriptDownloadUrl] = useState<string | null>(null);
   const [scriptDownloadName, setScriptDownloadName] = useState<string>("pulseai-script.txt");
-  const [selectedHistoryId, setSelectedHistoryId] = useState<(typeof HISTORY_ITEMS)[number]["id"] | null>(null);
+  const [selectedHistoryId, setSelectedHistoryId] = useState<
+    (typeof HISTORY_ITEMS)[number]["id"] | null
+  >(null);
   const [historyDownloadUrl, setHistoryDownloadUrl] = useState<string | null>(null);
   const [historyDownloadName, setHistoryDownloadName] = useState<string>("pulseai-history.txt");
   const [scannerSettings, setScannerSettings] = useState({
@@ -359,19 +471,21 @@ function Index() {
     {
       src: hiVdo,
       prompt: "Next-gen AI verification workflow for viral content creation...",
-      subtitle: "Microsoft has released its June security updates, addressing around 200 vulnerabilities across Windows and related products. Among the fixes are dozens of critical flaws and multiple publicly disclosed zero-day vulnerabilities. Security experts recommend updating systems as soon as possible, especially for organizations managing large numbers of Windows devices. The message is simple: if your systems aren't patched, you're giving attackers an opportunity.",
+      subtitle:
+        "Microsoft has released its June security updates, addressing around 200 vulnerabilities across Windows and related products. Among the fixes are dozens of critical flaws and multiple publicly disclosed zero-day vulnerabilities. Security experts recommend updating systems as soon as possible, especially for organizations managing large numbers of Windows devices. The message is simple: if your systems aren't patched, you're giving attackers an opportunity.",
     },
     {
       src: hiVdo,
       prompt: "A cinematic short-form concept generated from latest tech news...",
-      subtitle: "Microsoft has released its June security updates, addressing around 200 vulnerabilities across Windows and related products. Among the fixes are dozens of critical flaws and multiple publicly disclosed zero-day vulnerabilities. Security experts recommend updating systems as soon as possible, especially for organizations managing large numbers of Windows devices. The message is simple: if your systems aren't patched, you're giving attackers an opportunity.",
-    }
+      subtitle:
+        "Microsoft has released its June security updates, addressing around 200 vulnerabilities across Windows and related products. Among the fixes are dozens of critical flaws and multiple publicly disclosed zero-day vulnerabilities. Security experts recommend updating systems as soon as possible, especially for organizations managing large numbers of Windows devices. The message is simple: if your systems aren't patched, you're giving attackers an opportunity.",
+    },
   ];
   const subtitleChunks = chunkSubtitle(videos[currentVdo].subtitle);
   const bottomRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const selectedHistory = selectedHistoryId
-    ? HISTORY_ITEMS.find((item) => item.id === selectedHistoryId) ?? HISTORY_ITEMS[0]
+    ? (HISTORY_ITEMS.find((item) => item.id === selectedHistoryId) ?? HISTORY_ITEMS[0])
     : null;
   const filteredHistoryItems = HISTORY_ITEMS.filter((item) => {
     const query = sidebarSearch.trim().toLowerCase();
@@ -383,7 +497,8 @@ function Index() {
     );
   });
   const hasSidebarSearch = sidebarSearch.trim().length > 0;
-  const isConversationActive = messages.length > 0 || hasPrompt || loading || input.trim().length > 0;
+  const isConversationActive =
+    messages.length > 0 || hasPrompt || loading || input.trim().length > 0;
   const updateScannerSetting = (key: keyof typeof scannerSettings, value: string | number) => {
     setScannerSettings((current) => ({ ...current, [key]: value }));
     setScannerSaveState("idle");
@@ -415,10 +530,9 @@ function Index() {
     audioRef.current.currentTime = 0;
     videoRef.current.currentTime = 0;
     setSubtitleChunkIndex(0);
-    Promise.all([
-      audioRef.current.play(),
-      videoRef.current.play(),
-    ]).catch(() => setIsAudioPlaying(false));
+    Promise.all([audioRef.current.play(), videoRef.current.play()]).catch(() =>
+      setIsAudioPlaying(false),
+    );
   }, [currentVdo]);
 
   useEffect(() => {
@@ -427,10 +541,7 @@ function Index() {
     if (!audio || !video) return;
 
     if (isAudioPlaying) {
-      Promise.all([
-        audio.play(),
-        video.play(),
-      ]).catch(() => setIsAudioPlaying(false));
+      Promise.all([audio.play(), video.play()]).catch(() => setIsAudioPlaying(false));
     } else {
       audio.pause();
       video.pause();
@@ -448,11 +559,14 @@ function Index() {
     }, 1400);
 
     return () => window.clearInterval(interval);
-  }, [hasPrompt, isAudioPlaying, currentVdo]);
+  }, [hasPrompt, isAudioPlaying, currentVdo, subtitleChunks.length]);
 
   const autoResize = () => {
     const el = textareaRef.current;
-    if (el) { el.style.height = "auto"; el.style.height = Math.min(el.scrollHeight, 160) + "px"; }
+    if (el) {
+      el.style.height = "auto";
+      el.style.height = Math.min(el.scrollHeight, 160) + "px";
+    }
   };
 
   const startNewChat = () => {
@@ -526,26 +640,40 @@ function Index() {
         setVideoVisible(true);
         setIsAudioPlaying(true);
         const reply = `Here is a short video concept for: "${userText}". I would turn this into a fast hook, a clear middle, and a strong ending for a 15 to 30 second clip.`;
-        setMessages(prev => [...prev, { role: "assistant", content: reply }]);
+        setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
         setLoading(false);
-        if (videoDelayTimeoutRef.current) { window.clearTimeout(videoDelayTimeoutRef.current); videoDelayTimeoutRef.current = null; }
+        if (videoDelayTimeoutRef.current) {
+          window.clearTimeout(videoDelayTimeoutRef.current);
+          videoDelayTimeoutRef.current = null;
+        }
       }, delayMs) as unknown as number;
     } catch (e) {
-      setMessages(prev => [...prev, { role: "assistant", content: "⚠️ Connection error. Please try again." }]);
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: "⚠️ Connection error. Please try again." },
+      ]);
       setLoading(false);
-    } finally {
     }
   };
 
   const handleKey = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
   };
 
   return (
-    <div style={{
-      height: "100vh", background: "#f8fafc",
-      display: "flex", fontFamily: "'Inter', sans-serif", color: "#334155", overflow: "hidden",
-    }}>
+    <div
+      style={{
+        height: "100vh",
+        background: "#f8fafc",
+        display: "flex",
+        fontFamily: "'Inter', sans-serif",
+        color: "#334155",
+        overflow: "hidden",
+      }}
+    >
       <audio ref={audioRef} src={test2Audio} loop preload="auto" />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap');
@@ -564,25 +692,46 @@ function Index() {
       `}</style>
 
       {/* Sidebar */}
-      <aside style={{
-        width: isSidebarOpen ? 320 : 0,
-        opacity: isSidebarOpen ? 1 : 0,
-        borderRight: isSidebarOpen ? "1px solid rgba(0,0,0,0.05)" : "none",
-        display: "flex",
-        flexDirection: "column",
-        padding: isSidebarOpen ? "32px 20px" : "32px 0",
-        background: "#ffffff",
-        flexShrink: 0,
-        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-        overflow: "hidden",
-      }}>
+      <aside
+        style={{
+          width: isSidebarOpen ? 320 : 0,
+          opacity: isSidebarOpen ? 1 : 0,
+          borderRight: isSidebarOpen ? "1px solid rgba(0,0,0,0.05)" : "none",
+          display: "flex",
+          flexDirection: "column",
+          padding: isSidebarOpen ? "32px 20px" : "32px 0",
+          background: "#ffffff",
+          flexShrink: 0,
+          transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+          overflow: "hidden",
+        }}
+      >
         <div style={{ marginBottom: 40, position: "relative" }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 18, paddingLeft: "14px" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: 18,
+              paddingLeft: "14px",
+            }}
+          >
             <div>
-              <h2 style={{ fontSize: "12px", fontWeight: 700, color: "#64748b", textTransform: "uppercase", letterSpacing: "2px", margin: 0 }}>
+              <h2
+                style={{
+                  fontSize: "12px",
+                  fontWeight: 700,
+                  color: "#64748b",
+                  textTransform: "uppercase",
+                  letterSpacing: "2px",
+                  margin: 0,
+                }}
+              >
                 Chats
               </h2>
-              <p style={{ margin: "6px 0 0", fontSize: "12px", color: "#94a3b8" }}>Search and reopen past drafts</p>
+              <p style={{ margin: "6px 0 0", fontSize: "12px", color: "#94a3b8" }}>
+                Search and reopen past drafts
+              </p>
             </div>
             <button
               onClick={() => setIsSidebarOpen(false)}
@@ -626,7 +775,10 @@ function Index() {
           </button>
 
           <div style={{ position: "relative", marginBottom: 14 }}>
-            <Search size={16} style={{ position: "absolute", left: 14, top: 13, color: "#94a3b8" }} />
+            <Search
+              size={16}
+              style={{ position: "absolute", left: 14, top: 13, color: "#94a3b8" }}
+            />
             <input
               value={sidebarSearch}
               onChange={(e) => setSidebarSearch(e.target.value)}
@@ -647,9 +799,33 @@ function Index() {
           </div>
 
           {hasSidebarSearch && (
-            <div style={{ marginBottom: 12, borderRadius: "14px", border: "1px solid rgba(15, 23, 42, 0.08)", background: "#f8fafc", padding: "12px" }}>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, marginBottom: 10 }}>
-                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "#64748b" }}>
+            <div
+              style={{
+                marginBottom: 12,
+                borderRadius: "14px",
+                border: "1px solid rgba(15, 23, 42, 0.08)",
+                background: "#f8fafc",
+                padding: "12px",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 12,
+                  marginBottom: 10,
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    letterSpacing: "1.5px",
+                    textTransform: "uppercase",
+                    color: "#64748b",
+                  }}
+                >
                   Search results
                 </div>
                 <div style={{ fontSize: 12, fontWeight: 600, color: "#475569" }}>
@@ -680,8 +856,14 @@ function Index() {
                         cursor: "pointer",
                       }}
                     >
-                      <div style={{ fontSize: 13, fontWeight: 700, color: "#0f172a", marginBottom: 2 }}>{item.title}</div>
-                      <div style={{ fontSize: 12, color: "#64748b", lineHeight: 1.5 }}>{item.topic}</div>
+                      <div
+                        style={{ fontSize: 13, fontWeight: 700, color: "#0f172a", marginBottom: 2 }}
+                      >
+                        {item.title}
+                      </div>
+                      <div style={{ fontSize: 12, color: "#64748b", lineHeight: 1.5 }}>
+                        {item.topic}
+                      </div>
                     </button>
                   ))
                 ) : (
@@ -693,7 +875,17 @@ function Index() {
             </div>
           )}
 
-          <div style={{ marginBottom: 10, paddingLeft: "14px", fontSize: 11, fontWeight: 700, color: "#94a3b8", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+          <div
+            style={{
+              marginBottom: 10,
+              paddingLeft: "14px",
+              fontSize: 11,
+              fontWeight: 700,
+              color: "#94a3b8",
+              letterSpacing: "1.5px",
+              textTransform: "uppercase",
+            }}
+          >
             Recent
           </div>
 
@@ -714,7 +906,15 @@ function Index() {
               />
             ))
           ) : (
-            <div style={{ padding: "14px", borderRadius: "12px", border: "1px dashed rgba(148, 163, 184, 0.35)", color: "#64748b", fontSize: 13 }}>
+            <div
+              style={{
+                padding: "14px",
+                borderRadius: "12px",
+                border: "1px dashed rgba(148, 163, 184, 0.35)",
+                color: "#64748b",
+                fontSize: 13,
+              }}
+            >
               No chats match that search.
             </div>
           )}
@@ -722,14 +922,28 @@ function Index() {
       </aside>
 
       {/* Main Content Area */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
-
-        <header style={{
-          display: "flex", alignItems: "center", justifyContent: "space-between",
-          padding: "16px 40px", borderBottom: "1px solid rgba(0,0,0,0.05)",
-          background: "#ffffff",
-          position: "sticky", top: 0, zIndex: 100,
-        }}>
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <header
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "16px 40px",
+            borderBottom: "1px solid rgba(0,0,0,0.05)",
+            background: "#ffffff",
+            position: "sticky",
+            top: 0,
+            zIndex: 100,
+          }}
+        >
           <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
             {!isSidebarOpen && (
               <button
@@ -764,21 +978,31 @@ function Index() {
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
-            <div style={{
-              background: "#f1f5f9",
-              padding: "4px",
-              borderRadius: "12px",
-              display: "flex",
-              border: "1px solid rgba(0,0,0,0.05)"
-            }}>
+            <div
+              style={{
+                background: "#f1f5f9",
+                padding: "4px",
+                borderRadius: "12px",
+                display: "flex",
+                border: "1px solid rgba(0,0,0,0.05)",
+              }}
+            >
               <button
                 onClick={() => setMode("blank")}
                 style={{
-                  padding: "8px 18px", borderRadius: "8px", fontSize: "13px", fontWeight: 600,
+                  padding: "8px 18px",
+                  borderRadius: "8px",
+                  fontSize: "13px",
+                  fontWeight: 600,
                   background: mode === "blank" ? "#ffffff" : "transparent",
                   boxShadow: mode === "blank" ? "0 2px 8px rgba(0,0,0,0.05)" : "none",
-                  border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 8,
-                  color: mode === "blank" ? "#0ea5e9" : "#64748b", transition: "all 0.2s"
+                  border: "none",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  color: mode === "blank" ? "#0ea5e9" : "#64748b",
+                  transition: "all 0.2s",
                 }}
               >
                 <User size={16} /> Choose your avatar
@@ -786,11 +1010,19 @@ function Index() {
               <button
                 onClick={() => setMode("scanner")}
                 style={{
-                  padding: "8px 18px", borderRadius: "8px", fontSize: "13px", fontWeight: 600,
+                  padding: "8px 18px",
+                  borderRadius: "8px",
+                  fontSize: "13px",
+                  fontWeight: 600,
                   background: mode === "scanner" ? "#ffffff" : "transparent",
                   boxShadow: mode === "scanner" ? "0 2px 8px rgba(0,0,0,0.05)" : "none",
-                  border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 8,
-                  color: mode === "scanner" ? "#0ea5e9" : "#64748b", transition: "all 0.2s"
+                  border: "none",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  color: mode === "scanner" ? "#0ea5e9" : "#64748b",
+                  transition: "all 0.2s",
                 }}
               >
                 <Search size={16} /> Content settings
@@ -798,68 +1030,139 @@ function Index() {
               <button
                 onClick={() => setMode("shorts")}
                 style={{
-                  padding: "8px 18px", borderRadius: "8px", fontSize: "13px", fontWeight: 600,
+                  padding: "8px 18px",
+                  borderRadius: "8px",
+                  fontSize: "13px",
+                  fontWeight: 600,
                   background: mode === "shorts" ? "#ffffff" : "transparent",
                   boxShadow: mode === "shorts" ? "0 2px 8px rgba(0,0,0,0.05)" : "none",
                   color: mode === "shorts" ? "#0ea5e9" : "#64748b",
-                  border: "none", cursor: "pointer", transition: "all 0.2s",
-                  display: "flex", alignItems: "center", gap: "8px"
+                  border: "none",
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
                 }}
               >
                 <Video size={14} /> Shorts Mode
               </button>
             </div>
 
-            <button style={{ background: "transparent", border: "none", color: "#64748b", cursor: "pointer", position: "relative" }}>
+            <button
+              style={{
+                background: "transparent",
+                border: "none",
+                color: "#64748b",
+                cursor: "pointer",
+                position: "relative",
+              }}
+            >
               <Bell size={20} />
-              <div style={{ position: "absolute", top: -2, right: -2, width: 8, height: 8, background: "#ef4444", borderRadius: "50%", border: "2px solid #080d14" }} />
+              <div
+                style={{
+                  position: "absolute",
+                  top: -2,
+                  right: -2,
+                  width: 8,
+                  height: 8,
+                  background: "#ef4444",
+                  borderRadius: "50%",
+                  border: "2px solid #080d14",
+                }}
+              />
             </button>
           </div>
         </header>
 
         {mode === "scanner" ? (
-          <div style={{
-            padding: "22px 0 8px",
-          }}>
+          <div
+            style={{
+              padding: "22px 0 8px",
+            }}
+          >
             <div style={{ maxWidth: 840, margin: "0 auto", padding: "0 40px", width: "100%" }}>
-              <div style={{
-                maxWidth: 680,
-                margin: "0 auto",
-                border: "1px solid rgba(15, 23, 42, 0.08)",
-                background: "#ffffff",
-                borderRadius: "24px",
-                padding: "24px",
-                boxShadow: "0 10px 28px rgba(15,23,42,0.05)",
-              }}>
+              <div
+                style={{
+                  maxWidth: 680,
+                  margin: "0 auto",
+                  border: "1px solid rgba(15, 23, 42, 0.08)",
+                  background: "#ffffff",
+                  borderRadius: "24px",
+                  padding: "24px",
+                  boxShadow: "0 10px 28px rgba(15,23,42,0.05)",
+                }}
+              >
                 <div style={{ marginBottom: 18 }}>
-                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "#64748b", marginBottom: 8 }}>
+                  <div
+                    style={{
+                      fontSize: 11,
+                      fontWeight: 700,
+                      letterSpacing: "1.5px",
+                      textTransform: "uppercase",
+                      color: "#64748b",
+                      marginBottom: 8,
+                    }}
+                  >
                     Content settings
                   </div>
-                  <div style={{ fontSize: 28, lineHeight: 1.1, fontWeight: 700, color: "#0f172a", marginBottom: 10 }}>
+                  <div
+                    style={{
+                      fontSize: 28,
+                      lineHeight: 1.1,
+                      fontWeight: 700,
+                      color: "#0f172a",
+                      marginBottom: 10,
+                    }}
+                  >
                     Editable draft settings
                   </div>
                   <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "#475569" }}>
-                    These controls update locally so the section feels like a real settings editor before backend wiring exists.
+                    These controls update locally so the section feels like a real settings editor
+                    before backend wiring exists.
                   </p>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 12 }}>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                    gap: 12,
+                  }}
+                >
                   {SCANNER_SETTING_FIELDS.map((field) => (
-                    <label key={field.key} style={{
-                      border: "1px solid rgba(15, 23, 42, 0.08)",
-                      borderRadius: "16px",
-                      padding: "14px 15px",
-                      background: "#f8fafc",
-                      display: "block",
-                      cursor: field.type === "number" ? "text" : "pointer",
-                    }}>
-                      <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: "#64748b", marginBottom: 6 }}>
+                    <label
+                      key={field.key}
+                      style={{
+                        border: "1px solid rgba(15, 23, 42, 0.08)",
+                        borderRadius: "16px",
+                        padding: "14px 15px",
+                        background: "#f8fafc",
+                        display: "block",
+                        cursor: field.type === "number" ? "text" : "pointer",
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: 11,
+                          fontWeight: 700,
+                          letterSpacing: "1px",
+                          textTransform: "uppercase",
+                          color: "#64748b",
+                          marginBottom: 6,
+                        }}
+                      >
                         {field.label}
                       </div>
                       {field.type === "select" ? (
                         <select
                           value={String(scannerSettings[field.key as keyof typeof scannerSettings])}
-                          onChange={(event) => updateScannerSetting(field.key as keyof typeof scannerSettings, event.target.value)}
+                          onChange={(event) =>
+                            updateScannerSetting(
+                              field.key as keyof typeof scannerSettings,
+                              event.target.value,
+                            )
+                          }
                           style={{
                             width: "100%",
                             border: "1px solid rgba(15, 23, 42, 0.08)",
@@ -884,7 +1187,9 @@ function Index() {
                           min={field.min}
                           max={field.max}
                           value={scannerSettings.sourceCount}
-                          onChange={(event) => updateScannerSetting("sourceCount", Number(event.target.value) || 1)}
+                          onChange={(event) =>
+                            updateScannerSetting("sourceCount", Number(event.target.value) || 1)
+                          }
                           style={{
                             width: "100%",
                             border: "1px solid rgba(15, 23, 42, 0.08)",
@@ -902,7 +1207,15 @@ function Index() {
                   ))}
                 </div>
 
-                <div style={{ marginTop: 16, display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
+                <div
+                  style={{
+                    marginTop: 16,
+                    display: "flex",
+                    gap: 10,
+                    flexWrap: "wrap",
+                    alignItems: "center",
+                  }}
+                >
                   <button
                     type="button"
                     onClick={saveScannerSettings}
@@ -918,9 +1231,22 @@ function Index() {
                       cursor: scannerSaveState === "saving" ? "wait" : "pointer",
                     }}
                   >
-                    {scannerSaveState === "saving" ? "Updating..." : scannerSaveState === "saved" ? "Saved locally" : "Update settings"}
+                    {scannerSaveState === "saving"
+                      ? "Updating..."
+                      : scannerSaveState === "saved"
+                        ? "Saved locally"
+                        : "Update settings"}
                   </button>
-                  <span style={{ fontSize: 12, fontWeight: 600, color: "#475569", background: "#f3f4f6", padding: "8px 12px", borderRadius: 999 }}>
+                  <span
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 600,
+                      color: "#475569",
+                      background: "#f3f4f6",
+                      padding: "8px 12px",
+                      borderRadius: 999,
+                    }}
+                  >
                     Draft mode
                   </span>
                 </div>
@@ -928,53 +1254,89 @@ function Index() {
             </div>
           </div>
         ) : (
-          <div style={{
-            background: "rgba(15, 23, 42, 0.02)",
-            borderBottom: "1px solid rgba(15, 23, 42, 0.06)",
-            padding: "10px 0",
-            overflow: "hidden",
-            whiteSpace: "nowrap"
-          }}>
-            <div style={{ display: "inline-block", animation: "ticker 30s linear infinite", paddingLeft: "100%" }}>
-              <span style={{ color: "#64748b", fontWeight: 700, marginRight: "40px" }}>BREAKING:</span>
-              <span style={{ marginRight: "80px", color: "#94a3b8" }}>SpaceX Starship achieves successful orbital insertion test...</span>
-              <span style={{ color: "#64748b", fontWeight: 700, marginRight: "40px" }}>VERIFIED:</span>
-              <span style={{ marginRight: "80px", color: "#94a3b8" }}>New deepfake detection AI reaches 99.9% accuracy...</span>
-              <span style={{ color: "#64748b", fontWeight: 700, marginRight: "40px" }}>TRENDING:</span>
-              <span style={{ color: "#94a3b8" }}>Room-temperature superconductor replication attempts increase globally...</span>
+          <div
+            style={{
+              background: "rgba(15, 23, 42, 0.02)",
+              borderBottom: "1px solid rgba(15, 23, 42, 0.06)",
+              padding: "10px 0",
+              overflow: "hidden",
+              whiteSpace: "nowrap",
+            }}
+          >
+            <div
+              style={{
+                display: "inline-block",
+                animation: "ticker 30s linear infinite",
+                paddingLeft: "100%",
+              }}
+            >
+              <span style={{ color: "#64748b", fontWeight: 700, marginRight: "40px" }}>
+                BREAKING:
+              </span>
+              <span style={{ marginRight: "80px", color: "#94a3b8" }}>
+                SpaceX Starship achieves successful orbital insertion test...
+              </span>
+              <span style={{ color: "#64748b", fontWeight: 700, marginRight: "40px" }}>
+                VERIFIED:
+              </span>
+              <span style={{ marginRight: "80px", color: "#94a3b8" }}>
+                New deepfake detection AI reaches 99.9% accuracy...
+              </span>
+              <span style={{ color: "#64748b", fontWeight: 700, marginRight: "40px" }}>
+                TRENDING:
+              </span>
+              <span style={{ color: "#94a3b8" }}>
+                Room-temperature superconductor replication attempts increase globally...
+              </span>
             </div>
           </div>
         )}
 
-        <main style={{
-          flex: 1,
-          overflowY: mode === "blank" ? "hidden" : "auto",
-          padding: "20px 0",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: isConversationActive || selectedHistory ? "flex-start" : "center",
-          minHeight: 0,
-        }}>
-          <div style={{ maxWidth: 840, margin: "0 auto", padding: isConversationActive || selectedHistory ? "0 40px 40px" : "0 40px", width: "100%" }}>
-
-            {mode !== "blank" && hasPrompt && (
-              videoVisible ? (
-                <div style={{
-                  animation: "fadeSlideIn 0.8s ease-out",
-                  maxWidth: "680px",
-                  margin: "0 auto",
-                  userSelect: "none",
-                  position: "relative"
-                }}>
-                  <div style={{
+        <main
+          style={{
+            flex: 1,
+            overflowY: mode === "blank" ? "hidden" : "auto",
+            padding: "20px 0",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: isConversationActive || selectedHistory ? "flex-start" : "center",
+            minHeight: 0,
+          }}
+        >
+          <div
+            style={{
+              maxWidth: 840,
+              margin: "0 auto",
+              padding: isConversationActive || selectedHistory ? "0 40px 40px" : "0 40px",
+              width: "100%",
+            }}
+          >
+            {mode !== "blank" &&
+              hasPrompt &&
+              (videoVisible ? (
+                <div
+                  style={{
+                    animation: "fadeSlideIn 0.8s ease-out",
+                    maxWidth: "680px",
+                    margin: "0 auto",
+                    userSelect: "none",
                     position: "relative",
-                    borderRadius: "24px",
-                    overflow: "hidden",
-                    boxShadow: "0 20px 50px rgba(0,0,0,0.06)",
-                    background: "#000",
-                    lineHeight: 0,
-                    animation: videoDirection === "next" ? "slideFromRight 0.35s ease" : "slideFromLeft 0.35s ease"
-                  }}>
+                  }}
+                >
+                  <div
+                    style={{
+                      position: "relative",
+                      borderRadius: "24px",
+                      overflow: "hidden",
+                      boxShadow: "0 20px 50px rgba(0,0,0,0.06)",
+                      background: "#000",
+                      lineHeight: 0,
+                      animation:
+                        videoDirection === "next"
+                          ? "slideFromRight 0.35s ease"
+                          : "slideFromLeft 0.35s ease",
+                    }}
+                  >
                     <video
                       ref={videoRef}
                       key={currentVdo}
@@ -987,23 +1349,33 @@ function Index() {
                         width: "100%",
                         maxHeight: "55vh",
                         objectFit: "cover",
-                        display: "block"
+                        display: "block",
                       }}
                     />
-                    <div style={{
-                      position: "absolute",
-                      left: 14,
-                      right: 14,
-                      bottom: 16,
-                      padding: "12px 14px",
-                      borderRadius: 14,
-                      background: "linear-gradient(180deg, rgba(15,23,42,0.12), rgba(15,23,42,0.78))",
-                      color: "white",
-                      textShadow: "0 2px 10px rgba(0,0,0,0.35)",
-                      pointerEvents: "none",
-                      textAlign: "center",
-                    }}>
-                      <div style={{ fontSize: 15, lineHeight: 1.55, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                    <div
+                      style={{
+                        position: "absolute",
+                        left: 14,
+                        right: 14,
+                        bottom: 16,
+                        padding: "12px 14px",
+                        borderRadius: 14,
+                        background:
+                          "linear-gradient(180deg, rgba(15,23,42,0.12), rgba(15,23,42,0.78))",
+                        color: "white",
+                        textShadow: "0 2px 10px rgba(0,0,0,0.35)",
+                        pointerEvents: "none",
+                        textAlign: "center",
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: 15,
+                          lineHeight: 1.55,
+                          fontWeight: 700,
+                          fontFamily: "'Plus Jakarta Sans', sans-serif",
+                        }}
+                      >
                         {subtitleChunks[subtitleChunkIndex]}
                       </div>
                     </div>
@@ -1028,7 +1400,11 @@ function Index() {
                       aria-label={isAudioPlaying ? "Pause audio" : "Play audio"}
                       title={isAudioPlaying ? "Pause audio" : "Play audio"}
                     >
-                      {isAudioPlaying ? <Pause size={18} /> : <Play size={18} style={{ marginLeft: 2 }} />}
+                      {isAudioPlaying ? (
+                        <Pause size={18} />
+                      ) : (
+                        <Play size={18} style={{ marginLeft: 2 }} />
+                      )}
                     </button>
                     <button
                       onClick={() => {
@@ -1097,56 +1473,93 @@ function Index() {
                   </div>
                 </div>
               ) : (
-                <div style={{
-                  animation: "fadeSlideIn 0.8s ease-out",
-                  maxWidth: "680px",
-                  margin: "0 auto",
-                  userSelect: "none",
-                  position: "relative",
-                  borderRadius: "24px",
-                  overflow: "hidden",
-                  boxShadow: "0 20px 50px rgba(0,0,0,0.06)",
-                  background: "#000",
-                  minHeight: "220px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "white",
-                  flexDirection: "column",
-                  gap: 12,
-                  padding: 24
-                }}>
+                <div
+                  style={{
+                    animation: "fadeSlideIn 0.8s ease-out",
+                    maxWidth: "680px",
+                    margin: "0 auto",
+                    userSelect: "none",
+                    position: "relative",
+                    borderRadius: "24px",
+                    overflow: "hidden",
+                    boxShadow: "0 20px 50px rgba(0,0,0,0.06)",
+                    background: "#000",
+                    minHeight: "220px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "white",
+                    flexDirection: "column",
+                    gap: 12,
+                    padding: 24,
+                  }}
+                >
                   <div style={{ fontSize: 18, fontWeight: 700 }}>Preparing video...</div>
-                  <div style={{ fontSize: 13, color: "#cbd5e1" }}>This will appear in {videoCountdown} second{videoCountdown === 1 ? "" : "s"}.</div>
-                  <div style={{ marginTop: 8 }}><TypingDots /></div>
+                  <div style={{ fontSize: 13, color: "#cbd5e1" }}>
+                    This will appear in {videoCountdown} second{videoCountdown === 1 ? "" : "s"}.
+                  </div>
+                  <div style={{ marginTop: 8 }}>
+                    <TypingDots />
+                  </div>
                 </div>
-              )
-            )}
+              ))}
 
             {/* Messages */}
             {mode !== "blank" && selectedHistory && (
-              <div style={{
-                maxWidth: "680px",
-                margin: "0 auto 20px",
-                padding: "18px 20px",
-                borderRadius: "20px",
-                border: "1px solid rgba(0,0,0,0.06)",
-                background: "linear-gradient(180deg, rgba(255,255,255,0.96), rgba(248,250,252,0.96))",
-                boxShadow: "0 10px 28px rgba(15,23,42,0.05)",
-              }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, marginBottom: 10 }}>
+              <div
+                style={{
+                  maxWidth: "680px",
+                  margin: "0 auto 20px",
+                  padding: "18px 20px",
+                  borderRadius: "20px",
+                  border: "1px solid rgba(0,0,0,0.06)",
+                  background:
+                    "linear-gradient(180deg, rgba(255,255,255,0.96), rgba(248,250,252,0.96))",
+                  boxShadow: "0 10px 28px rgba(15,23,42,0.05)",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: 12,
+                    marginBottom: 10,
+                  }}
+                >
                   <div>
-                    <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "#64748b", marginBottom: 4 }}>
+                    <div
+                      style={{
+                        fontSize: 11,
+                        fontWeight: 700,
+                        letterSpacing: "1.5px",
+                        textTransform: "uppercase",
+                        color: "#64748b",
+                        marginBottom: 4,
+                      }}
+                    >
                       History selected
                     </div>
-                    <div style={{ fontSize: 16, fontWeight: 700, color: "#0f172a" }}>{selectedHistory.title}</div>
+                    <div style={{ fontSize: 16, fontWeight: 700, color: "#0f172a" }}>
+                      {selectedHistory.title}
+                    </div>
                   </div>
-                  <span style={{ fontSize: 11, fontWeight: 700, color: "#0ea5e9", background: "rgba(14, 165, 233, 0.08)", padding: "6px 10px", borderRadius: 999 }}>
+                  <span
+                    style={{
+                      fontSize: 11,
+                      fontWeight: 700,
+                      color: "#0ea5e9",
+                      background: "rgba(14, 165, 233, 0.08)",
+                      padding: "6px 10px",
+                      borderRadius: 999,
+                    }}
+                  >
                     Saved draft
                   </span>
                 </div>
                 <p style={{ margin: 0, fontSize: 13, lineHeight: 1.6, color: "#475569" }}>
-                  Showing a stored chat draft for {selectedHistory.topic}. It stays local, but the controls react like a live thread.
+                  Showing a stored chat draft for {selectedHistory.topic}. It stays local, but the
+                  controls react like a live thread.
                 </p>
                 {historyDownloadUrl && (
                   <a
@@ -1177,35 +1590,85 @@ function Index() {
                 )}
               </div>
             )}
-            {mode !== "blank" && !selectedHistory && messages.length === 0 && !input.trim() && !loading && (
-              <div style={{ maxWidth: "680px", margin: "0 auto 18px", padding: "0 4px" }}>
-                <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "#94a3b8", marginBottom: 8 }}>
-                  New chat
+            {mode !== "blank" &&
+              !selectedHistory &&
+              messages.length === 0 &&
+              !input.trim() &&
+              !loading && (
+                <div style={{ maxWidth: "680px", margin: "0 auto 18px", padding: "0 4px" }}>
+                  <div
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 700,
+                      letterSpacing: "1.5px",
+                      textTransform: "uppercase",
+                      color: "#94a3b8",
+                      marginBottom: 8,
+                    }}
+                  >
+                    New chat
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 30,
+                      lineHeight: 1.08,
+                      fontWeight: 700,
+                      color: "#0f172a",
+                      marginBottom: 8,
+                    }}
+                  >
+                    Start with a topic.
+                  </div>
+                  <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "#475569" }}>
+                    Drop a link, paste an idea, or ask for a script. Keep it simple and PulseAI
+                    shapes the draft.
+                  </p>
+                  <div style={{ marginTop: 10, fontSize: 13, color: "#64748b" }}>
+                    Try: NASA discovery · AI trends · tech news
+                  </div>
                 </div>
-                <div style={{ fontSize: 30, lineHeight: 1.08, fontWeight: 700, color: "#0f172a", marginBottom: 8 }}>
-                  Start with a topic.
-                </div>
-                <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "#475569" }}>
-                  Drop a link, paste an idea, or ask for a script. Keep it simple and PulseAI shapes the draft.
-                </p>
-                <div style={{ marginTop: 10, fontSize: 13, color: "#64748b" }}>
-                  Try: NASA discovery · AI trends · tech news
-                </div>
-              </div>
-            )}
+              )}
             {mode !== "blank" && messages.map((msg, i) => <Message key={i} msg={msg} />)}
             {mode !== "blank" && loading && (
-              <div style={{ display: "flex", alignItems: "flex-start", marginBottom: 28, animation: "fadeSlideIn 0.3s ease-out" }}>
-                <div style={{
-                  width: 38, height: 38, borderRadius: "10px", flexShrink: 0,
-                  background: "#f1f5f9", display: "flex", alignItems: "center", justifyContent: "center",
-                  marginRight: 16, color: "#0ea5e9", fontSize: 20,
-                }}>✦</div>
-                <div style={{ padding: "10px 0" }}><TypingDots /></div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  marginBottom: 28,
+                  animation: "fadeSlideIn 0.3s ease-out",
+                }}
+              >
+                <div
+                  style={{
+                    width: 38,
+                    height: 38,
+                    borderRadius: "10px",
+                    flexShrink: 0,
+                    background: "#f1f5f9",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginRight: 16,
+                    color: "#0ea5e9",
+                    fontSize: 20,
+                  }}
+                >
+                  ✦
+                </div>
+                <div style={{ padding: "10px 0" }}>
+                  <TypingDots />
+                </div>
               </div>
             )}
             {mode === "blank" && (
-              <div style={{ animation: "fadeSlideIn 0.6s ease-out", maxWidth: "800px", margin: "0 auto", textAlign: "center" }}>
+              <div
+                style={{
+                  animation: "fadeSlideIn 0.6s ease-out",
+                  maxWidth: "800px",
+                  margin: "0 auto",
+                  textAlign: "center",
+                }}
+              >
                 <input
                   type="file"
                   ref={fileInputRef}
@@ -1222,113 +1685,231 @@ function Index() {
                 />
 
                 {!selectedAvatar ? (
-                  <div style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(3, 1fr)",
-                    gap: "24px",
-                  }}>
-                    <div className="suggestion" style={{
-                      background: "#ffffff",
-                      padding: "32px 24px",
-                      borderRadius: "24px",
-                      border: "1px solid rgba(0,0,0,0.05)",
-                      textAlign: "center",
-                      cursor: "pointer",
-                    }}>
-                      <div style={{
-                        width: 54, height: 54, borderRadius: "18px", background: "linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%)",
-                        display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px", color: "white",
-                        boxShadow: "0 10px 20px rgba(14, 165, 233, 0.2)"
-                      }}>
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "repeat(3, 1fr)",
+                      gap: "24px",
+                    }}
+                  >
+                    <div
+                      className="suggestion"
+                      style={{
+                        background: "#ffffff",
+                        padding: "32px 24px",
+                        borderRadius: "24px",
+                        border: "1px solid rgba(0,0,0,0.05)",
+                        textAlign: "center",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: 54,
+                          height: 54,
+                          borderRadius: "18px",
+                          background: "linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          margin: "0 auto 20px",
+                          color: "white",
+                          boxShadow: "0 10px 20px rgba(14, 165, 233, 0.2)",
+                        }}
+                      >
                         <Sparkles size={28} />
                       </div>
-                      <h3 style={{ fontSize: "16px", fontWeight: 700, marginBottom: "8px", color: "#1e293b" }}>Create an AI Avatar</h3>
-                      <p style={{ fontSize: "13px", color: "#64748b", lineHeight: 1.5 }}>Generate a unique AI persona for your engine.</p>
+                      <h3
+                        style={{
+                          fontSize: "16px",
+                          fontWeight: 700,
+                          marginBottom: "8px",
+                          color: "#1e293b",
+                        }}
+                      >
+                        Create an AI Avatar
+                      </h3>
+                      <p style={{ fontSize: "13px", color: "#64748b", lineHeight: 1.5 }}>
+                        Generate a unique AI persona for your engine.
+                      </p>
                     </div>
 
-                    <div className="suggestion" onClick={() => fileInputRef.current?.click()} style={{
-                      background: "#ffffff",
-                      padding: "32px 24px",
-                      borderRadius: "24px",
-                      border: "1px solid rgba(0,0,0,0.05)",
-                      textAlign: "center",
-                      cursor: "pointer",
-                    }}>
-                      <div style={{
-                        width: 54, height: 54, borderRadius: "18px", background: "#f1f5f9",
-                        display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px", color: "#64748b",
-                        border: "1px solid rgba(0,0,0,0.05)"
-                      }}>
+                    <div
+                      className="suggestion"
+                      onClick={() => fileInputRef.current?.click()}
+                      style={{
+                        background: "#ffffff",
+                        padding: "32px 24px",
+                        borderRadius: "24px",
+                        border: "1px solid rgba(0,0,0,0.05)",
+                        textAlign: "center",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: 54,
+                          height: 54,
+                          borderRadius: "18px",
+                          background: "#f1f5f9",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          margin: "0 auto 20px",
+                          color: "#64748b",
+                          border: "1px solid rgba(0,0,0,0.05)",
+                        }}
+                      >
                         <Upload size={28} />
                       </div>
-                      <h3 style={{ fontSize: "16px", fontWeight: 700, marginBottom: "8px", color: "#1e293b" }}>Upload your own</h3>
-                      <p style={{ fontSize: "13px", color: "#64748b", lineHeight: 1.5 }}>Use your existing photo or brand assets.</p>
+                      <h3
+                        style={{
+                          fontSize: "16px",
+                          fontWeight: 700,
+                          marginBottom: "8px",
+                          color: "#1e293b",
+                        }}
+                      >
+                        Upload your own
+                      </h3>
+                      <p style={{ fontSize: "13px", color: "#64748b", lineHeight: 1.5 }}>
+                        Use your existing photo or brand assets.
+                      </p>
                     </div>
 
-                    <div className="suggestion" onClick={() => setSelectedAvatar(AI_AVATAR_ILLUSTRATION)} style={{
-                      background: "#ffffff",
-                      padding: "32px 24px",
-                      borderRadius: "24px",
-                      border: "1px solid rgba(0,0,0,0.05)",
-                      textAlign: "center",
-                      cursor: "pointer",
-                    }}>
-                      <div style={{
-                        width: 72,
-                        height: 72,
-                        borderRadius: "20px",
-                        overflow: "hidden",
-                        margin: "0 auto 20px",
-                        border: "1px solid rgba(15, 23, 42, 0.08)",
-                        boxShadow: "none",
-                        background: "#f8fafc",
-                      }}>
-                        <img src={AI_AVATAR_ILLUSTRATION} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} alt="Illustration preview" />
+                    <div
+                      className="suggestion"
+                      onClick={() => setSelectedAvatar(AI_AVATAR_ILLUSTRATION)}
+                      style={{
+                        background: "#ffffff",
+                        padding: "32px 24px",
+                        borderRadius: "24px",
+                        border: "1px solid rgba(0,0,0,0.05)",
+                        textAlign: "center",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: 72,
+                          height: 72,
+                          borderRadius: "20px",
+                          overflow: "hidden",
+                          margin: "0 auto 20px",
+                          border: "1px solid rgba(15, 23, 42, 0.08)",
+                          boxShadow: "none",
+                          background: "#f8fafc",
+                        }}
+                      >
+                        <img
+                          src={AI_AVATAR_ILLUSTRATION}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                            display: "block",
+                          }}
+                          alt="Illustration preview"
+                        />
                       </div>
-                      <h3 style={{ fontSize: "16px", fontWeight: 700, marginBottom: "8px", color: "#1e293b" }}>Create an AI Avatar</h3>
-                      <p style={{ fontSize: "13px", color: "#64748b", lineHeight: 1.5 }}>Generate a unique AI persona for your engine.</p>
+                      <h3
+                        style={{
+                          fontSize: "16px",
+                          fontWeight: 700,
+                          marginBottom: "8px",
+                          color: "#1e293b",
+                        }}
+                      >
+                        Create an AI Avatar
+                      </h3>
+                      <p style={{ fontSize: "13px", color: "#64748b", lineHeight: 1.5 }}>
+                        Generate a unique AI persona for your engine.
+                      </p>
                     </div>
                   </div>
                 ) : (
-                  <div style={{
-                    background: "#ffffff",
-                    padding: "48px",
-                    borderRadius: "32px",
-                    border: "1px solid rgba(0,0,0,0.05)",
-                    maxWidth: "500px",
-                    margin: "0 auto",
-                    boxShadow: "0 20px 40px rgba(0,0,0,0.05)"
-                  }}>
-                    <div style={{ position: "relative", width: 180, height: 180, margin: "0 auto 32px" }}>
+                  <div
+                    style={{
+                      background: "#ffffff",
+                      padding: "48px",
+                      borderRadius: "32px",
+                      border: "1px solid rgba(0,0,0,0.05)",
+                      maxWidth: "500px",
+                      margin: "0 auto",
+                      boxShadow: "0 20px 40px rgba(0,0,0,0.05)",
+                    }}
+                  >
+                    <div
+                      style={{
+                        position: "relative",
+                        width: 180,
+                        height: 180,
+                        margin: "0 auto 32px",
+                      }}
+                    >
                       <img
                         src={selectedAvatar}
-                        style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover", border: "4px solid white", boxShadow: "0 10px 25px rgba(0,0,0,0.1)" }}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          borderRadius: "50%",
+                          objectFit: "cover",
+                          border: "4px solid white",
+                          boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
+                        }}
                         alt="Avatar Preview"
                       />
                       <button
                         onClick={() => setSelectedAvatar(null)}
-                        style={{ position: "absolute", top: 10, right: 10, background: "#ef4444", color: "white", border: "none", borderRadius: "50%", width: 32, height: 32, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
+                        style={{
+                          position: "absolute",
+                          top: 10,
+                          right: 10,
+                          background: "#ef4444",
+                          color: "white",
+                          border: "none",
+                          borderRadius: "50%",
+                          width: 32,
+                          height: 32,
+                          cursor: "pointer",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
                       >
                         <X size={16} />
                       </button>
                     </div>
-                    <h3 style={{ fontSize: "22px", fontWeight: 700, marginBottom: "12px", color: "#1e293b" }}>Photo Selected</h3>
-                    <p style={{ fontSize: "15px", color: "#64748b", marginBottom: "32px" }}>Ready to transform this photo into your content avatar?</p>
-                    <button style={{
-                      padding: "16px 40px",
-                      background: "linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%)",
-                      borderRadius: "14px",
-                      border: "none",
-                      color: "white",
-                      fontWeight: 700,
-                      fontSize: "16px",
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "12px",
-                      margin: "0 auto",
-                      boxShadow: "0 10px 20px rgba(14, 165, 233, 0.2)"
-                    }}>
+                    <h3
+                      style={{
+                        fontSize: "22px",
+                        fontWeight: 700,
+                        marginBottom: "12px",
+                        color: "#1e293b",
+                      }}
+                    >
+                      Photo Selected
+                    </h3>
+                    <p style={{ fontSize: "15px", color: "#64748b", marginBottom: "32px" }}>
+                      Ready to transform this photo into your content avatar?
+                    </p>
+                    <button
+                      style={{
+                        padding: "16px 40px",
+                        background: "linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%)",
+                        borderRadius: "14px",
+                        border: "none",
+                        color: "white",
+                        fontWeight: 700,
+                        fontSize: "16px",
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "12px",
+                        margin: "0 auto",
+                        boxShadow: "0 10px 20px rgba(14, 165, 233, 0.2)",
+                      }}
+                    >
                       <Sparkles size={20} /> Generate Avatar
                     </button>
                   </div>
@@ -1350,8 +1931,17 @@ function Index() {
                   const reader = new FileReader();
                   reader.onloadend = () => {
                     const result = reader.result as string;
-                    const type = file.type.startsWith("image/") ? "image" : file.type.startsWith("video/") ? "video" : file.type === "application/pdf" ? "pdf" : "pdf";
-                    setMessages(prev => [...prev, { role: "user", content: { type, src: result, name: file.name } }]);
+                    const type = file.type.startsWith("image/")
+                      ? "image"
+                      : file.type.startsWith("video/")
+                        ? "video"
+                        : file.type === "application/pdf"
+                          ? "pdf"
+                          : "pdf";
+                    setMessages((prev) => [
+                      ...prev,
+                      { role: "user", content: { type, src: result, name: file.name } },
+                    ]);
                   };
                   reader.readAsDataURL(file);
                 });
@@ -1363,38 +1953,88 @@ function Index() {
           </div>
         </main>
 
-        <div style={{
-          padding: "16px 40px 48px", background: "transparent",
-        }}>
+        <div
+          style={{
+            padding: "16px 40px 48px",
+            background: "transparent",
+          }}
+        >
           <div style={{ maxWidth: 840, margin: "0 auto" }}>
-            <div className="input-wrap" style={{
-              background: "#ffffff", border: "1px solid rgba(0,0,0,0.1)",
-              borderRadius: "24px", display: "flex", alignItems: "center",
-              padding: "16px 16px 16px 24px", gap: 16, transition: "all 0.3s ease",
-              boxShadow: "0 4px 20px rgba(0,0,0,0.04)",
-            }}>
+            <div
+              className="input-wrap"
+              style={{
+                background: "#ffffff",
+                border: "1px solid rgba(0,0,0,0.1)",
+                borderRadius: "24px",
+                display: "flex",
+                alignItems: "center",
+                padding: "16px 16px 16px 24px",
+                gap: 16,
+                transition: "all 0.3s ease",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.04)",
+              }}
+            >
               <div style={{ display: "flex", gap: "12px", color: "#64748b" }}>
-                <button onClick={() => attachmentInputRef.current?.click()} style={{ background: "transparent", border: "none", color: "inherit", cursor: "pointer", padding: 0 }} title="Upload media">
+                <button
+                  onClick={() => attachmentInputRef.current?.click()}
+                  style={{
+                    background: "transparent",
+                    border: "none",
+                    color: "inherit",
+                    cursor: "pointer",
+                    padding: 0,
+                  }}
+                  title="Upload media"
+                >
                   <Plus size={18} />
                 </button>
-                <button style={{ background: "transparent", border: "none", color: "inherit", cursor: "pointer", padding: 0 }} title="Paste news link">
+                <button
+                  style={{
+                    background: "transparent",
+                    border: "none",
+                    color: "inherit",
+                    cursor: "pointer",
+                    padding: 0,
+                  }}
+                  title="Paste news link"
+                >
                   <LinkIcon size={20} />
                 </button>
-                <button style={{ background: "transparent", border: "none", color: "inherit", cursor: "pointer", padding: 0 }} title="Voice input">
+                <button
+                  style={{
+                    background: "transparent",
+                    border: "none",
+                    color: "inherit",
+                    cursor: "pointer",
+                    padding: 0,
+                  }}
+                  title="Voice input"
+                >
                   <Mic size={20} />
                 </button>
               </div>
               <textarea
                 ref={textareaRef}
                 value={input}
-                onChange={e => { setInput(e.target.value); autoResize(); }}
+                onChange={(e) => {
+                  setInput(e.target.value);
+                  autoResize();
+                }}
                 onKeyDown={handleKey}
                 placeholder="Drop a topic. Get a viral script."
                 rows={1}
                 style={{
-                  flex: 1, background: "transparent", border: "none", resize: "none",
-                  color: "#334155", fontSize: 16, lineHeight: 1.6, padding: 0,
-                  fontFamily: "inherit", caretColor: "#0ea5e9", maxHeight: 160,
+                  flex: 1,
+                  background: "transparent",
+                  border: "none",
+                  resize: "none",
+                  color: "#334155",
+                  fontSize: 16,
+                  lineHeight: 1.6,
+                  padding: 0,
+                  fontFamily: "inherit",
+                  caretColor: "#0ea5e9",
+                  maxHeight: 160,
                   outline: "none",
                 }}
               />
@@ -1403,19 +2043,36 @@ function Index() {
                 onClick={() => sendMessage()}
                 disabled={!input.trim() || loading}
                 style={{
-                  width: 48, height: 48, borderRadius: "14px", border: "none",
+                  width: 48,
+                  height: 48,
+                  borderRadius: "14px",
+                  border: "none",
                   cursor: input.trim() && !loading ? "pointer" : "not-allowed",
                   background: input.trim() && !loading ? "#0ea5e9" : "#f1f5f9",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 22, transition: "all 0.3s ease", flexShrink: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: 22,
+                  transition: "all 0.3s ease",
+                  flexShrink: 0,
                   color: input.trim() && !loading ? "white" : "#475569",
-                  boxShadow: input.trim() && !loading ? "0 8px 16px rgba(14, 165, 233, 0.3)" : "none",
+                  boxShadow:
+                    input.trim() && !loading ? "0 8px 16px rgba(14, 165, 233, 0.3)" : "none",
                 }}
               >
                 <Send size={20} />
               </button>
             </div>
-            <p style={{ textAlign: "center", fontSize: "11px", color: "#475569", marginTop: "16px", textTransform: "uppercase", letterSpacing: "1px" }}>
+            <p
+              style={{
+                textAlign: "center",
+                fontSize: "11px",
+                color: "#475569",
+                marginTop: "16px",
+                textTransform: "uppercase",
+                letterSpacing: "1px",
+              }}
+            >
               Pulse AI Media Engine · Press Enter to generate
             </p>
           </div>

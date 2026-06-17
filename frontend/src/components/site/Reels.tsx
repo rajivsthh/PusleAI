@@ -5,12 +5,33 @@ import r2 from "@/assets/reel-2.jpg";
 import r3 from "@/assets/reel-3.jpg";
 
 const reels = [
-  { img: r1, title: "Why JWST just rewrote the timeline of galaxies", handle: "@pulse.space", likes: "124K", comments: "2.4K", music: "Ambient 528Hz · PulseAI" },
-  { img: r2, title: "Figure 02 worked an entire BMW shift. Here's how.", handle: "@pulse.robotics", likes: "318K", comments: "9.1K", music: "Lo-fi pulse · PulseAI" },
-  { img: r3, title: "Gemini 3 explained — in 60 seconds", handle: "@pulse.ai", likes: "512K", comments: "12.7K", music: "Synth wave · PulseAI" },
+  {
+    img: r1,
+    title: "Why JWST just rewrote the timeline of galaxies",
+    handle: "@pulse.space",
+    likes: "124K",
+    comments: "2.4K",
+    music: "Ambient 528Hz · PulseAI",
+  },
+  {
+    img: r2,
+    title: "Figure 02 worked an entire BMW shift. Here's how.",
+    handle: "@pulse.robotics",
+    likes: "318K",
+    comments: "9.1K",
+    music: "Lo-fi pulse · PulseAI",
+  },
+  {
+    img: r3,
+    title: "Gemini 3 explained — in 60 seconds",
+    handle: "@pulse.ai",
+    likes: "512K",
+    comments: "12.7K",
+    music: "Synth wave · PulseAI",
+  },
 ];
 
-function Phone({ r, i }: { r: typeof reels[number]; i: number }) {
+function Phone({ r, i }: { r: (typeof reels)[number]; i: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -22,15 +43,29 @@ function Phone({ r, i }: { r: typeof reels[number]; i: number }) {
       <div className="relative w-[260px] rounded-[42px] p-2.5 glass-strong shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]">
         <div className="absolute inset-0 -z-10 rounded-[42px] bg-iris/10 blur-2xl" />
         <div className="relative aspect-[9/19] rounded-[34px] overflow-hidden bg-black">
-          <img src={r.img} alt={r.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+          <img
+            src={r.img}
+            alt={r.title}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
           {/* notch */}
           <div className="absolute top-2 left-1/2 -translate-x-1/2 h-5 w-20 rounded-full bg-black" />
           {/* right rail */}
           <div className="absolute right-3 bottom-28 flex flex-col items-center gap-4 text-white">
-            <div className="flex flex-col items-center gap-1"><Heart className="h-5 w-5 fill-white" /><span className="text-[10px]">{r.likes}</span></div>
-            <div className="flex flex-col items-center gap-1"><MessageCircle className="h-5 w-5" /><span className="text-[10px]">{r.comments}</span></div>
-            <div className="flex flex-col items-center gap-1"><Send className="h-5 w-5" /><span className="text-[10px]">share</span></div>
+            <div className="flex flex-col items-center gap-1">
+              <Heart className="h-5 w-5 fill-white" />
+              <span className="text-[10px]">{r.likes}</span>
+            </div>
+            <div className="flex flex-col items-center gap-1">
+              <MessageCircle className="h-5 w-5" />
+              <span className="text-[10px]">{r.comments}</span>
+            </div>
+            <div className="flex flex-col items-center gap-1">
+              <Send className="h-5 w-5" />
+              <span className="text-[10px]">share</span>
+            </div>
           </div>
           {/* bottom info */}
           <div className="absolute inset-x-3 bottom-3 text-white">
@@ -57,10 +92,14 @@ export function Reels() {
       <div className="relative mx-auto max-w-6xl px-6">
         <div className="text-center max-w-2xl mx-auto">
           <div className="text-xs text-iris-soft tracking-wider uppercase">In the wild</div>
-          <h2 className="mt-2 text-3xl sm:text-4xl tracking-tight">Built for the feed Gen Z already lives in.</h2>
+          <h2 className="mt-2 text-3xl sm:text-4xl tracking-tight">
+            Built for the feed Gen Z already lives in.
+          </h2>
         </div>
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-          {reels.map((r, i) => <Phone key={i} r={r} i={i} />)}
+          {reels.map((r, i) => (
+            <Phone key={i} r={r} i={i} />
+          ))}
         </div>
       </div>
     </section>

@@ -10,7 +10,9 @@ const trending = [
 
 function Spark({ values, color = "var(--iris)" }: { values: number[]; color?: string }) {
   const max = Math.max(...values);
-  const pts = values.map((v, i) => `${(i / (values.length - 1)) * 100},${100 - (v / max) * 100}`).join(" ");
+  const pts = values
+    .map((v, i) => `${(i / (values.length - 1)) * 100},${100 - (v / max) * 100}`)
+    .join(" ");
   return (
     <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-16">
       <defs>
@@ -31,7 +33,9 @@ export function Analytics() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="max-w-2xl">
           <div className="text-xs text-iris-soft tracking-wider uppercase">Analytics</div>
-          <h2 className="mt-2 text-3xl sm:text-4xl tracking-tight">A newsroom you can actually measure.</h2>
+          <h2 className="mt-2 text-3xl sm:text-4xl tracking-tight">
+            A newsroom you can actually measure.
+          </h2>
         </div>
 
         <motion.div
@@ -53,15 +57,22 @@ export function Analytics() {
             <div className="p-6">
               <div className="text-xs text-muted-foreground">Engagement rate</div>
               <div className="mt-2 flex items-end gap-2">
-                <span className="text-4xl font-medium tracking-tight">14.2<span className="text-lg text-muted-foreground">%</span></span>
+                <span className="text-4xl font-medium tracking-tight">
+                  14.2<span className="text-lg text-muted-foreground">%</span>
+                </span>
                 <span className="text-xs text-emerald-400 mb-1.5">+3.1%</span>
               </div>
-              <Spark values={[8, 9, 11, 10, 12, 11, 13, 12, 14, 13, 14, 13, 15, 14]} color="oklch(0.82 0.10 220)" />
+              <Spark
+                values={[8, 9, 11, 10, 12, 11, 13, 12, 14, 13, 14, 13, 15, 14]}
+                color="oklch(0.82 0.10 220)"
+              />
             </div>
             <div className="p-6">
               <div className="text-xs text-muted-foreground">Avg. retention</div>
               <div className="mt-2 flex items-end gap-2">
-                <span className="text-4xl font-medium tracking-tight">82<span className="text-lg text-muted-foreground">%</span></span>
+                <span className="text-4xl font-medium tracking-tight">
+                  82<span className="text-lg text-muted-foreground">%</span>
+                </span>
                 <span className="text-xs text-emerald-400 mb-1.5">+6%</span>
               </div>
               <Spark values={[60, 64, 62, 68, 70, 72, 74, 76, 78, 79, 80, 81, 82, 82]} />
@@ -72,12 +83,16 @@ export function Analytics() {
             <div className="flex items-center justify-between">
               <div className="text-sm">Topics trending · last 24h</div>
               <div className="text-[11px] text-muted-foreground flex items-center gap-1.5">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 pulse-dot" /> auto-refreshing
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 pulse-dot" />{" "}
+                auto-refreshing
               </div>
             </div>
             <div className="mt-4 flex flex-wrap gap-2">
               {trending.map((t) => (
-                <div key={t.tag} className="group inline-flex items-center gap-2 rounded-full glass px-3 py-1.5 text-xs hover:bg-white/[0.06] transition">
+                <div
+                  key={t.tag}
+                  className="group inline-flex items-center gap-2 rounded-full glass px-3 py-1.5 text-xs hover:bg-white/[0.06] transition"
+                >
                   <span>#{t.tag}</span>
                   <span className="text-emerald-400">{t.delta}</span>
                 </div>

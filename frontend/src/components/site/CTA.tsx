@@ -15,13 +15,17 @@ export function CTA() {
           <div className="absolute -inset-20 -z-10 rounded-full bg-iris/15 blur-[100px]" />
           <div className="relative">
             <h2 className="text-balance text-4xl sm:text-5xl md:text-6xl tracking-tight leading-[1.05]">
-              Turn scrolling into<br />
+              Turn scrolling into
+              <br />
               <span className="font-display italic text-iris-soft">learning.</span>
             </h2>
             <p className="mt-5 mx-auto max-w-md text-muted-foreground">
               Join the early waitlist and help shape the future of tech literacy in Nepal.
             </p>
-            <form className="mt-8 mx-auto max-w-md flex flex-col sm:flex-row gap-2" onSubmit={(e) => e.preventDefault()}>
+            <form
+              className="mt-8 mx-auto max-w-md flex flex-col sm:flex-row gap-2"
+              onSubmit={(e) => e.preventDefault()}
+            >
               <input
                 type="email"
                 placeholder="you@frontier.dev"
@@ -53,9 +57,15 @@ export function Footer() {
           <span>PulseAI · Kathmandu, Nepal</span>
         </div>
         <div className="flex items-center gap-5">
-          <a href="#" className="hover:text-foreground transition">Manifesto</a>
-          <a href="#" className="hover:text-foreground transition">Privacy</a>
-          <a href="#" className="hover:text-foreground transition">Press kit</a>
+          <a href="#" className="hover:text-foreground transition">
+            Manifesto
+          </a>
+          <a href="#" className="hover:text-foreground transition">
+            Privacy
+          </a>
+          <a href="#" className="hover:text-foreground transition">
+            Press kit
+          </a>
         </div>
         <div>© 2026 PulseAI Labs</div>
       </div>

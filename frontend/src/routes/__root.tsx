@@ -73,17 +73,43 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "PulseAI — From Global Breakthroughs to 60-Second Learning" },
-      { name: "description", content: "PulseAI turns global AI, space and frontier-tech news into short-form learning for the next generation." },
+      {
+        name: "description",
+        content:
+          "PulseAI turns global AI, space and frontier-tech news into short-form learning for the next generation.",
+      },
       { name: "author", content: "PulseAI" },
-      { property: "og:title", content: "PulseAI — From Global Breakthroughs to 60-Second Learning" },
-      { property: "og:description", content: "PulseAI turns global AI, space and frontier-tech news into short-form learning for the next generation." },
+      {
+        property: "og:title",
+        content: "PulseAI — From Global Breakthroughs to 60-Second Learning",
+      },
+      {
+        property: "og:description",
+        content:
+          "PulseAI turns global AI, space and frontier-tech news into short-form learning for the next generation.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@PulseAI" },
-      { name: "twitter:title", content: "PulseAI — From Global Breakthroughs to 60-Second Learning" },
-      { name: "twitter:description", content: "PulseAI turns global AI, space and frontier-tech news into short-form learning for the next generation." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c8eecac6-54fd-4123-a965-3edadde8e148/id-preview-cca04a2c--5ebea409-3f32-4570-8eb6-f4f83fa093f0.lovable.app-1778817070533.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c8eecac6-54fd-4123-a965-3edadde8e148/id-preview-cca04a2c--5ebea409-3f32-4570-8eb6-f4f83fa093f0.lovable.app-1778817070533.png" },
+      {
+        name: "twitter:title",
+        content: "PulseAI — From Global Breakthroughs to 60-Second Learning",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "PulseAI turns global AI, space and frontier-tech news into short-form learning for the next generation.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c8eecac6-54fd-4123-a965-3edadde8e148/id-preview-cca04a2c--5ebea409-3f32-4570-8eb6-f4f83fa093f0.lovable.app-1778817070533.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c8eecac6-54fd-4123-a965-3edadde8e148/id-preview-cca04a2c--5ebea409-3f32-4570-8eb6-f4f83fa093f0.lovable.app-1778817070533.png",
+      },
     ],
     links: [
       {
@@ -92,7 +118,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,

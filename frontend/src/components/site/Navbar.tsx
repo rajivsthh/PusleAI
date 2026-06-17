@@ -36,7 +36,10 @@ export function Navbar() {
         <ul className="hidden md:flex items-center gap-1 ml-2 text-sm text-muted-foreground">
           {links.map((l) => (
             <li key={l.href}>
-              <a href={l.href} className="px-3 py-1.5 rounded-full hover:text-foreground hover:bg-white/5 transition-colors">
+              <a
+                href={l.href}
+                className="px-3 py-1.5 rounded-full hover:text-foreground hover:bg-white/5 transition-colors"
+              >
                 {l.label}
               </a>
             </li>
@@ -48,7 +51,8 @@ export function Navbar() {
             className="hidden sm:inline-flex h-8 items-center gap-1.5 px-3 rounded-full text-xs text-muted-foreground hover:text-foreground hover:bg-white/5 transition border border-white/8"
             aria-label="Open command palette"
           >
-            <Command className="h-3 w-3" /> Ask <kbd className="font-mono text-[10px] opacity-70">⌘K</kbd>
+            <Command className="h-3 w-3" /> Ask{" "}
+            <kbd className="font-mono text-[10px] opacity-70">⌘K</kbd>
           </a>
           <a
             href="#cta"

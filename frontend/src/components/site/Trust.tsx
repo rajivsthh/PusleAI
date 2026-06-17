@@ -2,10 +2,26 @@ import { motion } from "motion/react";
 import { ScanSearch, Eye, Stamp, UserCheck } from "lucide-react";
 
 const items = [
-  { icon: ScanSearch, title: "Fact-checking", desc: "Every claim is grounded in 2+ independent primary sources before publish." },
-  { icon: Eye, title: "AI transparency", desc: "Each reel ships with a visible model card and a confidence score." },
-  { icon: Stamp, title: "Ethical watermarking", desc: "Cryptographic C2PA watermarks on every generated frame." },
-  { icon: UserCheck, title: "Human oversight", desc: "Editors can pause, override, or annotate any agent in real time." },
+  {
+    icon: ScanSearch,
+    title: "Fact-checking",
+    desc: "Every claim is grounded in 2+ independent primary sources before publish.",
+  },
+  {
+    icon: Eye,
+    title: "AI transparency",
+    desc: "Each reel ships with a visible model card and a confidence score.",
+  },
+  {
+    icon: Stamp,
+    title: "Ethical watermarking",
+    desc: "Cryptographic C2PA watermarks on every generated frame.",
+  },
+  {
+    icon: UserCheck,
+    title: "Human oversight",
+    desc: "Editors can pause, override, or annotate any agent in real time.",
+  },
 ];
 
 export function Trust() {
@@ -14,7 +30,9 @@ export function Trust() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="max-w-2xl">
           <div className="text-xs text-iris-soft tracking-wider uppercase">Responsible AI</div>
-          <h2 className="mt-2 text-3xl sm:text-4xl tracking-tight">Trust, designed in — not bolted on.</h2>
+          <h2 className="mt-2 text-3xl sm:text-4xl tracking-tight">
+            Trust, designed in — not bolted on.
+          </h2>
         </div>
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {items.map((it, i) => (

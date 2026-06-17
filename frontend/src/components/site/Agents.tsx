@@ -13,9 +13,16 @@ export function Agents() {
     <section id="agents" className="relative py-28">
       <div className="mx-auto max-w-6xl px-6">
         <div className="max-w-2xl">
-          <div className="text-xs text-iris-soft tracking-wider uppercase">Multi-agent orchestration</div>
-          <h2 className="mt-2 text-3xl sm:text-4xl tracking-tight">Four agents, one continuous newsroom.</h2>
-          <p className="mt-4 text-muted-foreground">Each agent owns one job, talks to the others, and hands off context. The result is a tireless editorial team that never sleeps.</p>
+          <div className="text-xs text-iris-soft tracking-wider uppercase">
+            Multi-agent orchestration
+          </div>
+          <h2 className="mt-2 text-3xl sm:text-4xl tracking-tight">
+            Four agents, one continuous newsroom.
+          </h2>
+          <p className="mt-4 text-muted-foreground">
+            Each agent owns one job, talks to the others, and hands off context. The result is a
+            tireless editorial team that never sleeps.
+          </p>
         </div>
 
         <div className="relative mt-14 rounded-3xl glass overflow-hidden">
@@ -23,7 +30,10 @@ export function Agents() {
             {/* center node */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
               <div className="relative h-24 w-24 rounded-2xl glass-strong iris-glow flex items-center justify-center">
-                <div className="absolute -inset-3 rounded-3xl border border-iris/30 animate-ping" style={{ animationDuration: "3s" }} />
+                <div
+                  className="absolute -inset-3 rounded-3xl border border-iris/30 animate-ping"
+                  style={{ animationDuration: "3s" }}
+                />
                 <div className="text-center">
                   <div className="text-[10px] text-muted-foreground tracking-wider">PULSE</div>
                   <div className="text-sm font-medium">Core</div>
@@ -41,8 +51,23 @@ export function Agents() {
                 </linearGradient>
               </defs>
               {agents.map((a, i) => (
-                <line key={i} x1={a.x} y1={a.y} x2="50%" y2="50%" stroke="url(#lg)" strokeWidth="1" strokeDasharray="3 5">
-                  <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="1.4s" repeatCount="indefinite" />
+                <line
+                  key={i}
+                  x1={a.x}
+                  y1={a.y}
+                  x2="50%"
+                  y2="50%"
+                  stroke="url(#lg)"
+                  strokeWidth="1"
+                  strokeDasharray="3 5"
+                >
+                  <animate
+                    attributeName="stroke-dashoffset"
+                    from="0"
+                    to="-16"
+                    dur="1.4s"
+                    repeatCount="indefinite"
+                  />
                 </line>
               ))}
             </svg>
@@ -70,7 +95,9 @@ export function Agents() {
                   <div className="mt-2.5 text-[11px] text-muted-foreground">{a.role}</div>
                   <div className="mt-2.5 flex items-center gap-1.5 text-[10px]">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 pulse-dot" />
-                    <span className="text-muted-foreground">active · {Math.floor(20 + Math.random() * 80)} ops/min</span>
+                    <span className="text-muted-foreground">
+                      active · {Math.floor(20 + Math.random() * 80)} ops/min
+                    </span>
                   </div>
                 </div>
               </motion.div>
